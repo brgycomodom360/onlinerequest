@@ -1,0 +1,6 @@
+{
+  "name": "BARANGAY360 — Online Barangay Request & Tracking",
+  "description": "Mobile-Based Online Barangay Request and Tracking System for Philippine barangay residents and local government personnel.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

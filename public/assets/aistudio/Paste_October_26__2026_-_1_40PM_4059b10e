@@ -1,0 +1,805 @@
+# MASTER PROMPT FOR GOOGLE AI STUDIO
+## BARANGAY360 — Mobile-Based Online Barangay Request and Tracking System
+
+### 1. YOUR ROLE
+
+Act as a senior full-stack software engineer, mobile application developer, UI/UX designer, database architect, cybersecurity specialist, and Philippine local government digital transformation consultant.
+
+Build a complete, modern, secure, and functional mobile-first application called **BARANGAY360: Online Barangay Request and Tracking System**.
+
+Do not create merely a prototype, landing page, or static UI. Build a functional application with working forms, authentication, database operations, file uploads, request tracking, administrative workflows, validation, and error handling.
+
+If a feature requires an external service or credentials that are not available, implement the appropriate integration structure and clearly identify the required configuration. Never pretend that an unavailable integration is working.
+
+### 2. PROJECT PURPOSE
+
+Develop a mobile application that allows residents of a Philippine barangay to request official barangay documents online without needing to visit the barangay hall just to obtain a request form or inquire about application status.
+
+The application must enable residents to:
+
+- Register and log in securely.
+- Select the barangay document they need.
+- Complete an online request form.
+- Upload supporting documents when required.
+- Submit requests and receive unique reference numbers.
+- Track request status from submission to release.
+- Receive notifications about application updates.
+- View their request history.
+- Read document requirements, processing instructions, and approved fees.
+
+Barangay personnel must have a separate administrative interface for reviewing requests, verifying information, updating application status, preparing documents, and maintaining records.
+
+The application must be suitable for use by barangays in the Philippines, including communities with limited internet connectivity and residents using entry-level Android smartphones.
+
+### 3. TECHNOLOGY STACK
+
+Use the following technologies:
+
+- **Frontend:** React, TypeScript, and a modern component-based architecture.
+- **Styling:** Tailwind CSS or an equivalent responsive styling system.
+- **Icons:** Lucide icons.
+- **Backend:** Supabase.
+- **Database:** Supabase PostgreSQL.
+- **Authentication:** Supabase Auth.
+- **File storage:** Private Supabase Storage buckets.
+- **Deployment:** Vercel or Netlify.
+- **Mobile experience:** Progressive Web App (PWA) with responsive layouts and an installable experience where supported.
+
+Use the latest stable versions compatible with the selected Google AI Studio development environment.
+
+Organize the code into reusable components, pages, services, hooks, types, and configuration files.
+
+Use environment variables for Supabase configuration. Never expose service-role keys, private credentials, or privileged secrets in frontend code.
+
+### 4. DESIGN AND USER EXPERIENCE
+
+Create a professional, trustworthy, modern government-service interface.
+
+**Design requirements:**
+
+- Primary colors: navy blue, royal blue, white, and light gray.
+- Use green for completed or approved statuses, amber for pending actions, and red for errors or rejected applications.
+- Include a clean Barangay360 logo and a simple government-service visual identity.
+- Use readable typography, large touch targets, clear icons, and accessible contrast.
+- Use rounded cards, subtle shadows, consistent spacing, and simple navigation.
+- Avoid excessive animations, clutter, and unnecessary decorative elements.
+- Optimize layouts for Android phones first, then tablets and desktop computers.
+- Provide loading indicators, empty states, validation messages, success messages, and error messages.
+- Use clear, simple English with an option to support Filipino labels later.
+- Display Philippine peso amounts using the ₱ symbol.
+- Show dates in a readable Philippine date format.
+
+The interface should feel like a polished, production-oriented digital public service application.
+
+### 5. APPLICATION STRUCTURE
+
+Create two separate interfaces.
+
+**A. Resident Mobile Application**
+
+Primary navigation:
+
+1. Home
+2. Request Documents
+3. My Requests
+4. Notifications
+5. Profile
+
+**B. Barangay Administrative Dashboard**
+
+Primary navigation:
+
+1. Dashboard
+2. Request Management
+3. Document Services
+4. Residents
+5. Document Preparation
+6. Reports
+7. Notifications
+8. Staff and Permissions
+9. Audit Logs
+10. System Settings
+
+Residents must never have access to administrative pages. Staff must only access functions permitted by their assigned roles.
+
+### 6. RESIDENT REGISTRATION AND AUTHENTICATION
+
+Implement functional registration, login, logout, and password recovery using Supabase Auth.
+
+Registration fields should include:
+
+- Full name
+- Email address or supported login identifier
+- Mobile number, if required by the barangay
+- Password
+- Password confirmation
+- Barangay or residence information, as necessary
+
+Include:
+
+- Form validation.
+- Duplicate-account handling.
+- Email verification when enabled.
+- Secure session management.
+- Password reset.
+- Clear authentication error messages.
+- A privacy notice explaining how submitted information will be used.
+
+Do not treat a registered account as automatic proof of residency. Provide an appropriate verification workflow for authorized barangay personnel.
+
+Do not allow users to choose their own administrative role during public registration.
+
+### 7. RESIDENT HOME DASHBOARD
+
+After logging in, residents should see:
+
+- A personalized welcome message.
+- A prominent “Request a Document” button.
+- A summary of active requests.
+- A summary of completed requests.
+- Recent application updates.
+- Unread notifications.
+- Available barangay document services.
+- Important announcements from the barangay.
+
+Include a quick overview of the request process:
+
+**Select Document → Complete Form → Submit Request → Track Status → Complete Verification → Release Document**
+
+Clearly explain that online submission does not guarantee approval or automatic issuance.
+
+### 8. ONLINE BARANGAY DOCUMENT REQUEST FORM
+
+Create a complete, mobile-friendly request form.
+
+#### Step 1: Select Document Type
+
+Allow residents to select from configurable services, such as:
+
+- Barangay Clearance
+- Certificate of Residency
+- Certificate of Indigency
+- Barangay Business Clearance, where applicable
+- Other barangay certificates approved by the implementing office
+
+Only display services enabled by the barangay administrator.
+
+Each service must have configurable:
+
+- Service name
+- Description
+- Eligibility requirements
+- Required information
+- Required attachments
+- Applicable fee
+- Estimated processing period
+- Availability
+- Release instructions
+
+Do not assume every barangay offers every document or charges the same fee.
+
+#### Step 2: Enter Request Information
+
+Provide fields appropriate to the selected document, potentially including:
+
+- Full legal name
+- Date of birth, only when necessary
+- Residential address
+- Length of residency, when required
+- Purpose of request
+- Contact information
+- Additional information required by the service
+
+Avoid collecting sensitive information that is not necessary for the requested service.
+
+Prefill verified profile information where appropriate, but allow residents to correct information before submission.
+
+#### Step 3: Upload Requirements
+
+Allow users to upload supporting files when required.
+
+Support suitable formats such as JPG, PNG, and PDF, with configurable file-size limits.
+
+Requirements:
+
+- Validate file type and size.
+- Display upload progress.
+- Allow users to remove or replace files before submission.
+- Store files in private storage.
+- Associate each attachment with the correct request.
+- Restrict access to the resident who owns the request and authorized personnel.
+- Use short-lived signed URLs or another secure access mechanism.
+- Never expose private file URLs publicly.
+- Do not allow executable uploads.
+- Include appropriate file-access and retention policies.
+
+#### Step 4: Review and Submit
+
+Display a confirmation page summarizing the request, selected service, information entered, attachments, applicable fee, and processing instructions.
+
+Require the resident to confirm that the information is accurate before submission.
+
+On successful submission:
+
+- Save the request to Supabase.
+- Generate a unique, non-sequential reference number.
+- Save the submission timestamp.
+- Set the initial status to “Submitted.”
+- Display the reference number prominently.
+- Show the next steps and expected processing information.
+- Create an in-app notification confirming receipt.
+
+Prevent duplicate submissions caused by repeated button clicks or network retries.
+
+### 9. REQUEST TRACKING SYSTEM
+
+Create a dedicated “My Requests” page.
+
+Display each request as a card containing:
+
+- Reference number
+- Document type
+- Date submitted
+- Current status
+- Last updated date
+- Available next action
+
+Implement the following request statuses:
+
+1. **Submitted** — The request has been received.
+2. **Under Review** — Authorized staff are reviewing the application.
+3. **Pending Additional Requirements** — The resident must provide missing or corrected information.
+4. **Approved** — The application has passed the required approval process.
+5. **Ready for Release** — The document is prepared and ready for the authorized release process.
+6. **Released** — The document has been officially released and the release has been recorded.
+7. **Rejected** — The request has been declined, with an appropriate reason recorded.
+
+Provide a visual progress timeline showing the date of each relevant status change.
+
+Allow residents to open a request to see:
+
+- Full request details
+- Reference number
+- Status history
+- Staff instructions
+- Required corrections
+- Attached documents they are authorized to view
+- Applicable fee information
+- Pickup instructions
+- Release information, when available
+
+When additional requirements are needed, provide a secure mechanism for uploading the requested corrections.
+
+Enforce valid status transitions on the backend. A resident must not be able to approve their own request, mark a request as released, or alter staff-only records.
+
+### 10. BARANGAY ADMINISTRATIVE DASHBOARD
+
+Create a secure staff dashboard with a desktop-friendly layout that also works on tablets and phones.
+
+Display summary cards for:
+
+- Total requests received
+- New requests awaiting review
+- Requests under review
+- Requests awaiting resident action
+- Approved requests
+- Documents ready for release
+- Completed requests
+- Rejected requests
+
+Include charts showing request volume by document type, monthly submissions, processing times, and current request distribution.
+
+Use actual database records for dashboard metrics. Do not use fabricated statistics in production.
+
+#### Request Management Table
+
+Include:
+
+- Reference number
+- Resident name
+- Document type
+- Submission date
+- Current status
+- Assigned staff member, when applicable
+- Last updated date
+- Action menu
+
+Provide search, filtering, sorting, and pagination.
+
+Filters should include:
+
+- Status
+- Document type
+- Submission date range
+- Assigned staff member
+- Reference number
+
+Authorized staff must be able to open an application and review its details, submitted attachments, requirements, and status history.
+
+#### Staff Actions
+
+Depending on permissions, authorized personnel can:
+
+- Accept a request for review.
+- Assign a request to an authorized processor.
+- Request additional requirements.
+- Record verification results.
+- Approve or reject an application.
+- Prepare the document for release.
+- Record the authorized release.
+- Add internal notes.
+- Send instructions to the resident.
+
+Require a reason for rejection or requests for additional requirements.
+
+Record the staff account, timestamp, action, and appropriate reason for important workflow changes.
+
+Separate document preparation from final approval and release where required by barangay procedures.
+
+### 11. USER ROLES AND PERMISSIONS
+
+Implement server-enforced role-based access control.
+
+**Resident**
+
+- Manage their own profile.
+- Create requests.
+- View only their own requests and permitted attachments.
+- Upload required corrections.
+- View their notifications and request history.
+
+**Request Processor / Barangay Staff**
+
+- View assigned or otherwise authorized requests.
+- Review information and attachments.
+- Request corrections.
+- Update permitted workflow statuses.
+- Add internal notes where authorized.
+
+**Barangay Secretary / Authorized Approving Official**
+
+- Review requests within their assigned authority.
+- Approve or reject requests.
+- Authorize document preparation and release according to official procedures.
+- View authorized operational reports.
+
+**System Administrator**
+
+- Manage staff accounts and permissions.
+- Configure document services and system settings.
+- Manage system-wide operational functions.
+- View audit logs according to authorized responsibilities.
+
+Use an explicitly defined permission matrix. Do not automatically grant every staff member unrestricted access.
+
+Role assignments must be managed by authorized administrators or a trusted provisioning process, never by a public registration form.
+
+### 12. DOCUMENT PREPARATION AND RELEASE
+
+Create a document preparation module.
+
+Allow authorized personnel to:
+
+- Select an approved document template.
+- Populate approved fields using verified request information.
+- Preview the generated document.
+- Print or download a draft for review.
+- Record the required verification and approval steps.
+- Mark a document as ready for release only after the necessary authorization.
+- Record the date, method, and authorized staff member involved in release.
+
+Use printable layouts appropriate for official barangay documents.
+
+The system must not automatically create an apparently official, approved, signed, or sealed certificate merely because an online request was submitted.
+
+Only authorized personnel may finalize official documents. Digital signatures, official seals, and QR-based verification must only be used when approved and implemented according to applicable requirements.
+
+If PDF generation is supported by the development environment, implement it; otherwise, provide a reliable print-ready document workflow and clearly identify the remaining PDF integration.
+
+### 13. NOTIFICATION SYSTEM
+
+Create an in-app notification system.
+
+Generate notifications when:
+
+- A request is submitted successfully.
+- Staff begin reviewing the request.
+- Additional requirements are requested.
+- A request is approved.
+- A request is rejected.
+- A document becomes ready for release.
+- A document is recorded as released.
+
+Each notification should include a title, message, timestamp, read/unread status, and related request reference when applicable.
+
+Allow users to open the relevant request from a notification.
+
+Implement notification creation through secure backend logic so that residents cannot create fake staff notifications or impersonate administrative actions.
+
+Keep email and SMS notifications as configurable integrations. If credentials or a provider are unavailable, do not pretend that messages have been sent.
+
+### 14. DOCUMENT SERVICE MANAGEMENT
+
+Allow authorized administrators to configure available services.
+
+For each service, support:
+
+- Name and description
+- Eligibility instructions
+- Requirements checklist
+- Required form fields
+- Required attachments
+- Applicable fees
+- Estimated processing period
+- Pickup and release instructions
+- Availability status
+- Document template, if applicable
+
+Changes should affect new requests without silently rewriting historical application records.
+
+Store the service information and relevant fee details applicable at the time of submission so that historical requests remain interpretable.
+
+### 15. DATABASE DESIGN IN SUPABASE
+
+Create a normalized PostgreSQL database with appropriate relationships, indexes, constraints, and timestamps.
+
+Implement tables such as:
+
+**profiles**
+- id
+- auth_user_id
+- full_name
+- contact information, where needed
+- residence information, where needed
+- verification status
+- created_at
+- updated_at
+
+**user_roles**
+- id
+- user_id
+- role
+- assigned_by
+- created_at
+
+**document_services**
+- id
+- name
+- description
+- requirements
+- form configuration
+- fee
+- estimated processing period
+- is_active
+- created_at
+- updated_at
+
+**requests**
+- id
+- reference_number
+- resident_id
+- document_service_id
+- submitted information
+- applicable fee snapshot
+- current_status
+- assigned_staff_id
+- submission timestamp
+- updated_at
+- completion timestamp
+
+**request_attachments**
+- id
+- request_id
+- uploaded_by
+- private_storage_path
+- original_filename
+- file_type
+- file_size
+- uploaded_at
+
+**request_status_history**
+- id
+- request_id
+- previous_status
+- new_status
+- changed_by
+- reason
+- created_at
+
+**notifications**
+- id
+- recipient_id
+- request_id
+- title
+- message
+- read_at
+- created_at
+
+**audit_logs**
+- id
+- actor_id
+- action
+- entity_type
+- entity_id
+- timestamp
+- appropriate metadata
+
+**document_records**
+- id
+- request_id
+- template_version
+- preparation_status
+- approved_by
+- released_by
+- release_timestamp
+- document_storage_path, when applicable
+
+Add additional tables when necessary for staff assignments, service requirements, approved templates, and configuration.
+
+Use appropriate UUID identifiers, foreign keys, unique constraints, indexes, and validation rules.
+
+Do not store passwords in application tables. Use Supabase Auth.
+
+Avoid duplicating unnecessary personal information. Use a suitable design for flexible request fields while preserving validation, reporting, and auditability.
+
+### 16. ROW-LEVEL SECURITY AND BACKEND SECURITY
+
+Security is mandatory.
+
+Implement and test PostgreSQL Row-Level Security (RLS) policies for every table containing protected information.
+
+Requirements:
+
+- Residents can read only their own profile, requests, permitted attachments, and notifications.
+- Residents cannot change protected status fields or staff-only approval data.
+- Staff can access requests only according to their assigned permissions.
+- Administrative actions must be validated by trusted backend logic.
+- Only authorized administrators can manage roles and permissions.
+- Attachments must remain private.
+- Service configuration changes must be restricted to authorized personnel.
+- Audit records must not be editable by ordinary residents.
+- Public users must not be able to enumerate residents or requests.
+- Database queries must validate ownership and authorization.
+- Prevent insecure direct object references and unauthorized file access.
+- Use server-side validation in addition to client-side validation.
+- Add reasonable request throttling and abuse protections where supported.
+- Never put a Supabase service-role key in browser code.
+
+Do not assume that hiding a button or page is sufficient security.
+
+For privileged operations, use a trusted server environment or Supabase Edge Functions with verified authentication and role checks.
+
+Provide SQL migrations and setup instructions for all tables, indexes, policies, functions, and private storage buckets.
+
+### 17. PRIVACY AND PHILIPPINE GOVERNMENT REQUIREMENTS
+
+Design the system with reference to the Philippine Data Privacy Act of 2012 (Republic Act No. 10173) and applicable National Privacy Commission guidance.
+
+Include:
+
+- A privacy notice.
+- Clear purposes for collecting personal information.
+- Data minimization.
+- Role-based access.
+- Secure file storage.
+- Documented retention and disposal procedures.
+- Appropriate backup and recovery procedures.
+- Audit logging.
+- A process for handling privacy-related inquiries and requests.
+- Incident response procedures.
+- Appropriate consent or other applicable lawful-basis mechanisms, as determined by the implementing office.
+
+Do not assume that consent is automatically the correct lawful basis for every government processing activity. The barangay or responsible LGU must determine the appropriate lawful basis and privacy responsibilities.
+
+Do not publish resident information, request attachments, certificates, or personal identifiers publicly.
+
+Do not use actual resident information in demonstration mode. Provide synthetic sample data instead.
+
+### 18. SEARCH, FILTERING, REPORTS, AND EXPORTS
+
+Implement administrative reports using actual authorized database records.
+
+Reports should include:
+
+- Total requests by period.
+- Requests by document type.
+- Requests by current status.
+- Pending applications.
+- Completed applications.
+- Average processing time.
+- Applications requiring resident action.
+- Request trends by month.
+
+Allow authorized personnel to filter reports by date range and service type.
+
+Support CSV export for authorized reports, with appropriate access checks and protection against spreadsheet formula injection.
+
+Provide printable reports and an optional PDF export if the implementation environment supports it.
+
+Ensure exported data includes only the fields necessary for the report and does not expose unnecessary personal information.
+
+### 19. LOW-CONNECTIVITY AND MOBILE OPTIMIZATION
+
+Optimize the application for residents with limited mobile data and entry-level smartphones.
+
+Implement:
+
+- Lightweight pages.
+- Compressed images and optimized assets.
+- Responsive layouts.
+- Efficient database queries.
+- Clear retry options when network requests fail.
+- Preservation of form inputs during recoverable errors.
+- Appropriate loading and connection-error messages.
+- Installable PWA support where compatible.
+- A clear offline message when the system cannot connect.
+
+Do not claim that a request has been submitted while offline. Do not store sensitive attachments or authentication secrets in insecure local storage.
+
+If offline draft support is implemented, keep it separate from actual submission and clearly explain when synchronization is required.
+
+### 20. APPLICATION PAGES TO BUILD
+
+Create the following functional pages:
+
+**Public pages**
+1. Welcome / landing page.
+2. About the application.
+3. Available document services.
+4. Service requirements.
+5. Login.
+6. Registration.
+7. Password recovery.
+8. Privacy notice.
+9. Help and contact information.
+
+**Resident pages**
+10. Resident dashboard.
+11. New request form.
+12. Request review and confirmation.
+13. Submission success and reference number.
+14. My Requests.
+15. Request details and timeline.
+16. Additional requirements upload.
+17. Notifications.
+18. Profile and account settings.
+
+**Administrative pages**
+19. Staff login and protected dashboard.
+20. Request management.
+21. Request review and verification.
+22. Status history and audit details.
+23. Document preparation and preview.
+24. Document service management.
+25. Resident management with appropriate permissions.
+26. Staff account and role management.
+27. Reports and exports.
+28. Notifications management, where authorized.
+29. System configuration.
+30. Audit logs.
+
+All navigation elements, buttons, forms, filters, tables, and actions must have functional behavior.
+
+### 21. ERROR HANDLING AND VALIDATION
+
+Implement clear handling for:
+
+- Invalid login credentials.
+- Expired sessions.
+- Duplicate submissions.
+- Missing required fields.
+- Unsupported or oversized attachments.
+- Unauthorized actions.
+- Network interruptions.
+- Database failures.
+- Missing records.
+- Invalid status transitions.
+- Failed document generation.
+- Notification delivery failures.
+
+Do not expose database internals, stack traces, service secrets, or sensitive details in user-facing error messages.
+
+Log appropriate technical errors securely without unnecessarily recording sensitive personal information.
+
+### 22. TESTING REQUIREMENTS
+
+Create a testing checklist and test the following scenarios:
+
+1. A resident can register and log in.
+2. A resident can submit a valid document request.
+3. A unique reference number is generated.
+4. Required attachments are validated and stored privately.
+5. A resident can view their own request.
+6. A resident cannot view another resident's request.
+7. A resident cannot approve their own application.
+8. Authorized staff can review and update requests.
+9. Invalid status transitions are rejected.
+10. Residents receive the appropriate in-app notifications.
+11. Additional requirements can be submitted securely.
+12. Document preparation follows the required authorization workflow.
+13. Unauthorized users cannot access staff pages or private files.
+14. Reports display correct database-derived results.
+15. Forms remain usable on mobile devices.
+16. Recoverable network errors do not silently discard user input.
+17. RLS policies work when requests are made directly to the database API.
+18. Password recovery and logout work correctly.
+
+Provide a short manual testing guide and explain how to create separate test resident and staff accounts.
+
+### 23. REQUIRED PROJECT DELIVERABLES
+
+Generate:
+
+1. A working React and TypeScript application.
+2. A complete responsive resident interface.
+3. A complete administrative dashboard.
+4. Supabase integration.
+5. Database SQL migrations.
+6. RLS policies.
+7. Private storage configuration.
+8. Secure backend logic for privileged operations.
+9. Request status and notification workflows.
+10. Form validation and error handling.
+11. PWA configuration where supported.
+12. Synthetic demo data and setup instructions.
+13. Environment variable template without real secrets.
+14. A README containing installation, development, deployment, and maintenance instructions.
+15. A testing checklist.
+16. A list of any remaining external integrations or configuration steps.
+
+Use maintainable code and reusable components. Avoid putting the entire application into one oversized component or one file.
+
+### 24. DEVELOPMENT AND EXECUTION INSTRUCTIONS
+
+Work incrementally and preserve consistency across the entire application.
+
+**First:** Create the application architecture, routes, shared components, database schema, and design system.
+
+**Second:** Build authentication and role-based navigation.
+
+**Third:** Build the resident request submission and tracking workflow.
+
+**Fourth:** Build the administrative review and approval workflow.
+
+**Fifth:** Integrate Supabase authentication, database queries, storage, RLS, and trusted backend operations.
+
+**Sixth:** Implement notifications, reporting, document preparation, and exports.
+
+**Seventh:** Test the complete end-to-end workflow, resolve errors, and provide deployment instructions.
+
+If the development environment cannot complete all modules in one generation, prioritize a functional end-to-end flow rather than creating many incomplete pages.
+
+Do not replace real database operations with fake buttons, static arrays, or simulated success messages in production mode.
+
+For every implemented feature, distinguish between fully working functionality, demonstration-only behavior, and integrations requiring external credentials.
+
+### 25. FINAL ACCEPTANCE CRITERIA
+
+The application is considered ready for pilot testing only when the following complete workflow works:
+
+1. A resident creates an account and logs in.
+2. The resident selects an available barangay document.
+3. The resident completes the request form.
+4. The resident uploads required supporting documents.
+5. The system saves the request and generates a reference number.
+6. The resident can track the request through their account.
+7. Authorized barangay personnel can open and review the request.
+8. Staff can request corrections or process the application according to their permissions.
+9. The resident can submit requested corrections.
+10. An authorized official can approve or reject the application.
+11. Authorized staff can prepare the document and record its release according to barangay procedures.
+12. The resident receives the corresponding status notifications.
+13. All important status changes are recorded in the audit trail.
+14. Residents cannot access other residents' information.
+15. Database and file-storage security policies are verified.
+16. The application works correctly on mobile browsers and supported desktop browsers.
+
+### FINAL INSTRUCTION
+
+Begin building BARANGAY360 as a professional, functional mobile-first digital government service application.
+
+Prioritize security, reliability, accessibility, clear request tracking, and practical barangay workflows. Use sensible defaults where details are missing, but keep barangay-specific names, requirements, fees, processing periods, and approval rules configurable.
+
+Do not invent an official barangay identity, government endorsement, or legal approval. Use clearly labeled sample branding and synthetic data until the implementing barangay authorizes actual information.
+
+Start with the application architecture and core end-to-end request workflow, then continue implementing and testing the remaining modules until the project is ready for deployment and pilot evaluation.

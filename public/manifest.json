@@ -1,0 +1,23 @@
+{
+  "name": "BARANGAY360 — Online Barangay Request & Tracking System",
+  "short_name": "Barangay360",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#fafaf8",
+  "theme_color": "#082b6e",
+  "description": "Mobile-based online barangay document request and real-time status tracking system for residents and barangay officials.",
+  "icons": [
+    {
+      "src": "icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
